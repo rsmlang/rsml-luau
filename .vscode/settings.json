@@ -1,0 +1,14 @@
+{
+  "luau-lsp.require.mode": "relativeToFile",
+  "luau-lsp.require.directoryAliases": {
+    "@lune/": "~/.lune/.typedefs/0.8.9/"
+  },
+
+  "editor.indentSize": "tabSize",
+  "editor.insertSpaces": false,
+  "luau-lsp.sourcemap.enabled": false,
+  "luau-lsp.sourcemap.autogenerate": false,
+  "luau-lsp.fflags.override": {
+    "LuauSolverV2": "false",
+},
+}
