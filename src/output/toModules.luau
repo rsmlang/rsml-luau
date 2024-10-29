@@ -102,11 +102,9 @@ local function ToModuleString(parsed: Parsed, outputTo: string, parent: string, 
             table.concat(TableMap(variables, function(value, name)
 				return `\n{sheetName}:SetAttribute("{name}", {value})`
 			end))
-		)}\
-\
-        {table.concat(TableMap(rules, function(data, selector, baseIdx)
+		)}{if not TableIsEmpty(rules) then "\n" .. table.concat(TableMap(rules, function(data, selector, baseIdx)
 			return CreateStyleRule(data, selector, baseIdx, sheetName)
-		end), "\n\n")}{if not TableIsEmpty(derives) then "\n\n" .. table.concat(TableMap(derives, function(path, idx)
+		end), "\n\n") else ""}{if not TableIsEmpty(derives) then "\n\n" .. table.concat(TableMap(derives, function(path, idx)
             local derivedSheetName = `DerivedStyleSheet_{idx}`
 
 			return ToModuleString(
@@ -117,7 +115,7 @@ local function ToModuleString(parsed: Parsed, outputTo: string, parent: string, 
 				path:gsub("$%.luau", ".rsml") or `{path}`,
 				sheetName,
 				`DerivedStyleSheet_{idx}`
-			) ..  "\n" .. AddStyleDerive(sheetName, derivedSheetName)
+			) ..  "\n\n" .. AddStyleDerive(sheetName, derivedSheetName)
 		end), "\n\n") else ""}\
 \
         {sheetName}.Parent = {parent}\

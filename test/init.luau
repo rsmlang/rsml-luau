@@ -18,8 +18,8 @@ local Rsml = require("../src")
 -------------------------------------------------------------------------------------------------------
 
 
+local path = "../project/shared/styles/Button.rsml"
 
-local tokens = Rsml.Tokenize("../project/shared/styles/Button.rsml")
-local parsed = Rsml.Parse(tokens, "../project/shared/styles")
-
-Rsml.OutputToModules(parsed, "../project/shared/styles/Button.rsml.luau")
+local tokens = Rsml.Tokenize(path)
+local parsed = Rsml.Parse(tokens, path:gsub("/[^/]+$", "") or path)
+Rsml.OutputToModules(parsed, `{path}.luau`)
